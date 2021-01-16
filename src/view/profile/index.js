@@ -1,49 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import firebase from "../../config/firebase";
-import "firebase/auth";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Container,
-  Row,
-  Button,
-  ListGroup,
-  Card,
-  Col,
-  Form,
-} from "react-bootstrap";
+import { Container, Button, Spinner, Card, Col, Form } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import Navbar from "../../compenentes/navbar";
 import Footer from "../../compenentes/footer";
+import Loading from "../../compenentes/loading";
 
 function Profile() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState(
     useSelector((state) => state.usuarioEmail)
   );
-  const [currentSelectedExperience, setCurrentSelectedExperience] = useState();
+  const [currentSelectedExperience, setCurrentSelectedExperience] = useState(
+    ""
+  );
 
-  const [declaration, setDeclaration] = useState();
-  const [hackingExperiences, setHackingExperiences] = useState(() => {
-    const newList = [
-        {
-          data: "2021-01-15",
-          descricao: "teste",
-          hora: "11:00",
-          titulo: "Teste",
-          usuarioEmail: "teste@hackland.com",
-          depoimento:""
-        },{
-          data: "2021-01-15",
-          descricao: "teste",
-          hora: "11:00",
-          titulo: "Teste 2",
-          usuarioEmail: "teste@hackland.com",
-          depoimento:""
-        }
-      ];
-    return newList;
-  });
+  const [carregando, setCarregando] = useState(true);
+
+  const [declaration, setDeclaration] = useState("");
+  const [hackingExperiences, setHackingExperiences] = useState([]);
+
+  useEffect(() => {
+    const db = firebase.firestore();
+    const newList = [];
+    setCarregando(true);
+
+    db.collection("usuarios_desafios")
+      .where("user_email", "==", email)
+      .get()
+      .then(async (querySnapshot) => {
+        await querySnapshot.forEach( (docUsuariosDesafios) => {
+          const id_desafio = docUsuariosDesafios.data().id_desafio;
+          db.collection("desafios")
+            .doc(id_desafio)
+            .get()
+            .then((docDesafio) => {
+              if (docDesafio.exists) {
+                const docData = docDesafio.data();
+                newList.push(docData);
+              }
+            });
+        });
+        console.log(newList);
+        await setHackingExperiences([...newList]);
+        console.log(hackingExperiences);
+
+        setCarregando(false);
+      })
+      .catch(e => console.log(e));
+  }, []);
 
   function toggleCard(id) {
     if (currentSelectedExperience === id) {
@@ -59,43 +66,47 @@ function Profile() {
     setHackingExperiences([...hackingExperiences]);
     setDeclaration("");
   }
-  
 
-  const hacking_experiences_components = hackingExperiences.map(
-    (experience) => {
+  function getHackingExperiencesComponent() {
+    console.log("função")
+    return hackingExperiences.map((experience) => {
       return (
-        <Card >
-          <Card.Title onClick={() => toggleCard(experience.titulo)}>{experience.titulo} <Icon.ChevronCompactDown /></Card.Title>
+        <Card key={experience.title}>
+          <Card.Title onClick={() => toggleCard(experience.titulo)}>
+            {experience.titulo} <Icon.ChevronCompactDown />
+          </Card.Title>
           {currentSelectedExperience === experience.titulo ? (
-              <Card.Body>
-                <Col xs={12}>
-                  Data/Hora: {experience.data} {experience.hora}
-                </Col>
-                <Col xs={12}>Descrição do evento: {experience.descricao}</Col>
-                <Col xs={12}>Contato da empresa: {experience.usuarioEmail}</Col>
-                {experience.depoimento === "" ||
-                experience.depoimento === undefined ? (
-                  <Form>
-                    <Form.Label>Como foi a sua experiência?</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      rows={3}
-                      onChange={(e) => setDeclaration(e.target.value)}
-                    />
-                    <Button
-                      onClick={() => updateDeclaration(experience.titulo)}
-                      variant="primary"
-                    >
-                      Salvar
-                    </Button>
-                  </Form>
-                ) : <Col xs={12}>Depoimento: {experience.depoimento}</Col>}
-              </Card.Body>
+            <Card.Body>
+              <Col xs={12}>
+                Data/Hora: {experience.data} {experience.hora}
+              </Col>
+              <Col xs={12}>Descrição do evento: {experience.descricao}</Col>
+              <Col xs={12}>Contato da empresa: {experience.usuarioEmail}</Col>
+              {experience.depoimento === "" ||
+              experience.depoimento === undefined ? (
+                <Form>
+                  <Form.Label>Como foi a sua experiência?</Form.Label>
+                  <Form.Input
+                    as="textarea"
+                    rows={3}
+                    onChange={(e) => setDeclaration(e.target.value)}
+                  />
+                  <Button
+                    onClick={() => updateDeclaration(experience.titulo)}
+                    variant="primary"
+                  >
+                    Salvar
+                  </Button>
+                </Form>
+              ) : (
+                <Col xs={12}>Depoimento: {experience.depoimento}</Col>
+              )}
+            </Card.Body>
           ) : null}
         </Card>
       );
-    }
-  );
+    });
+  }
 
   return (
     <>
@@ -104,9 +115,11 @@ function Profile() {
       ) : null}
 
       <Navbar></Navbar>
-      <Container>
-        <ListGroup>{hacking_experiences_components}</ListGroup>
+      
+      <Container fluid>
+        {carregando ? <Loading></Loading> : getHackingExperiencesComponent()}
       </Container>
+
       <Footer></Footer>
     </>
   );
