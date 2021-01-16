@@ -19,7 +19,6 @@ function Detalhes(props) {
     const usuarioEmail = useSelector(state => state.usuarioEmail);
 
     useEffect(() => {
-        alert('carregou');
         console.log(props.match.params.id)
         firebase.firestore().collection('desafios').doc(props.match.params.id).get().then(
             resultado => {
