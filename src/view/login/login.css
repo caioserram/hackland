@@ -19,7 +19,7 @@ body {
     background-color: var(--cor-titulo);
     color: var(--cor-fundo); 
     width: 50%;
-    margin: 4% 25%;
+    margin: 4% 25% 1% 25%;
 }
 
 .btn-login:hover{
@@ -30,4 +30,15 @@ body {
 
 .btn-login:focus{
     box-shadow: none
+}
+
+.opcoes-login a{
+    text-decoration: none;
+    color: var(--cor-titulo);
+    transition: .2s ease-in-out;
+}
+
+.opcoes-login a:hover{
+    color: var(--cor-principal);
+    font-weight: bold;
 }

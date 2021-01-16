@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './login.css';
 import firebase from '../../config/firebase';
 import 'firebase/auth';
+import { Link } from 'react-router-dom';
 
 function Login(){
 
@@ -38,7 +39,11 @@ function Login(){
                     {
                         msgTipo === 'erro' && <span><strong>Ops!</strong> Verifique o usuário e senha! </span>
                     }    
-                </div>  
+                </div>
+
+                <div className="opcoes-login  text-center">
+                    <Link to='cadastro' className="mx-2">Quero me cadastrar</Link> 
+                </div>                  
             </form>
         </div>  
     );
