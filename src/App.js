@@ -15,7 +15,7 @@ function App() {
       <Router>
         <Route exact path="/" component={Home} />
         <Route exact path="/cadastro" component={Cadastro} />
-        <Route exact path="/home" component={Home} />
+        <Route exact path="/login" component={Login} />
       </Router>
     </Provider>  
   );
