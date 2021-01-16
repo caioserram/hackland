@@ -8,8 +8,12 @@ import Footer from '../../compenentes/footer';
 import { useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
+import Times from '../../compenentes/times';
+
 function Detalhes(props) {
     const[desafio, setDesafio] = useState({});
+    const[msg, setMsg] = useState();
+    const[times,setTimes] = useState([]);
 
     const usuarioLogado = useSelector(state => state.usuarioLogado);
     const usuarioEmail = useSelector(state => state.usuarioEmail);
@@ -20,8 +24,23 @@ function Detalhes(props) {
         firebase.firestore().collection('desafios').doc(props.match.params.id).get().then(
             resultado => {
                 setDesafio(resultado.data());
+                console.log(resultado.id)
+                firebase.firestore().collection('desafios_times').where('desafio','==',resultado.id).get().then(
+                    async(resultadoId) => {
+                        console.log(resultadoId)
+                        let listaTimes = []
+                        await resultadoId.docs.forEach(doc => {
+                            listaTimes.push({
+                                id: doc.id,
+                                ...doc.data()
+                            })
+                        })
+                        setTimes(listaTimes);
+                    });
             }
-        );
+        ).catch(erro => {
+            setMsg('Erro ao processar solicitação');
+        });
     }, [])
 
     return( 
@@ -60,7 +79,20 @@ function Detalhes(props) {
                                 <span className="icone-detalhes"><Icon.PencilSquare /></span>
                             </Link>
                         :
-                            ''
+                            <>
+                                <div className="">
+                                    <h2 className="mx-auto"> Times </h2>
+                                    <Link to='' className="btn btn-sm btn-detalhes mb-3"> Criar time </Link>
+                                </div>                            
+                                <div className="">
+                                    {
+                                        times.map(item => <Times key={item.id} id={item.id} 
+                                            time={item.id}       
+                                            dono={usuarioEmail == item.usuarioEmail ? 1 : 0}                                     
+                                        />) 
+                                    }
+                                </div>
+                            </>
                     }
                 </div>
             </div>
