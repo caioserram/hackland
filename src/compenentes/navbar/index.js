@@ -31,6 +31,7 @@ function Navbar(){
                         <>
                         <Link to='hacks' className="p-2 texto-nav">Hacks</Link>
                         <Link to='desafios' className="p-2 texto-nav">Meus desafios</Link>
+                        <Link to='/profile' className="p-2 texto-nav">Meu perfil</Link>
                         <Link to='/' onClick={sair} className="p-2 texto-nav">Sair</Link>
                         </>
                 }

@@ -9,6 +9,8 @@ import Login from './view/login';
 import Cadastro from './view/cadastro';
 import Home from './view/home';
 import Desafios from './view/desafios';
+import Profile from './view/profile';
+
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/desafios" component={Desafios} />
         <Route exact path="/hacks" component={Home} />
+        <Route exact path="/profile" component={Profile} />
       </Router>
     </Provider>  
   );
