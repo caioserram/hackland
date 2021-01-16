@@ -1,0 +1,18 @@
+@import url('../config.css');
+
+.container-fluid {
+    border: 0.5px solid #d8d5db;
+    width: 85%;
+    margin: 3% 7.5% 3% 7.5%;
+    border-radius: 7.5px;
+}
+
+.container-fluid h2{
+    font-weight: bold;
+    color: var(--cor-titulo);
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+    border-bottom: 2px solid var(--cor-principal);
+    margin-bottom: 4%;
+}

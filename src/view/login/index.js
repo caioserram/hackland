@@ -44,10 +44,10 @@ function Login(){
 
                 <div className="msg-login text-center my-5">
                     {
-                        msgTipo === 'sucesso' && <span><strong>Wow!</strong> Você está conectado! </span>
+                        msgTipo === 'sucesso' && <span><strong>Wow!</strong> Time criado! </span>
                     }
                     {
-                        msgTipo === 'erro' && <span><strong>Ops!</strong> Verifique o usuário e senha! </span>
+                        msgTipo === 'erro' && <span><strong>Ops!</strong> Algo aconteceu... </span>
                     }    
                 </div>
 
