@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './detalhes.css';
 import firebase from '../../config/firebase';
+import * as Icon from "react-bootstrap-icons";
 
 import Navbar from '../../compenentes/navbar';
 import Footer from '../../compenentes/footer';
@@ -12,7 +13,6 @@ function Detalhes(props) {
 
     const usuarioLogado = useSelector(state => state.usuarioLogado);
     const usuarioEmail = useSelector(state => state.usuarioEmail);
-    console.log(usuarioEmail)
 
     useEffect(() => {
         alert('carregou');
@@ -20,7 +20,6 @@ function Detalhes(props) {
         firebase.firestore().collection('desafios').doc(props.match.params.id).get().then(
             resultado => {
                 setDesafio(resultado.data());
-                console.log(desafio.usuarioEmail)
             }
         );
     }, [])
@@ -34,17 +33,31 @@ function Detalhes(props) {
                 }
 
                 <div className="row">
-                    <h2 className="mx-auto"> Título </h2>
+                    <h2 className="mx-auto"> { desafio.titulo } </h2>
                 </div>
                 <div className="row">
-                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus efficitur est eget justo condimentum posuere. Cras velit nulla, sagittis ac ultrices quis, sagittis vel velit. Vestibulum ut sollicitudin lacus, id interdum diam. In eleifend pellentesque metus, sed semper augue condimentum vitae. Mauris aliquet diam ligula. Quisque nec neque accumsan, consectetur sem a, tempus elit. Nullam ullamcorper ipsum quis feugiat rutrum. </p>
+                    <p> {desafio.descricao} </p>
+                </div>
+                <div className="row informacoes-detalhes">
+                    <div class="col-4 caixa-detalhes">
+                        <span className="icone-detalhes"><Icon.CalendarCheck /></span>
+                        <p> {desafio.data} </p>
+                    </div>
+                    <div class="col-4 caixa-detalhes">
+                        <span className="icone-detalhes"><Icon.Clock /></span>
+                        <p> {desafio.hora} </p>
+                    </div>                    
+                    <div class="col-4 caixa-detalhes">
+                        <span className="icone-detalhes"><Icon.CashStack /></span>
+                        <p> {desafio.premio ? 'R$' + desafio.premio : 'XP' } </p>
+                    </div>
                 </div>
                 <div className="row">
                     {
                             usuarioEmail === desafio.usuarioEmail
                         ?
-                            <Link to='' className="btn-editar">
-                                Editar
+                            <Link to='' className="btn-editar-detalhes">
+                                <span className="icone-detalhes"><Icon.PencilSquare /></span>
                             </Link>
                         :
                             ''
