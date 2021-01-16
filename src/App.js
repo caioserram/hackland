@@ -11,6 +11,8 @@ import Home from './view/home';
 import Desafios from './view/desafios';
 import Detalhes from './view/detalhes';
 import CadastrarTimes from './view/criar-time';
+import Profile from './view/profile';
+
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
         <Route exact path="/hacks" component={Home} />
         <Route path="/detalhes/:id" component={Detalhes} />
         <Route path="/cadastrarTimes/:id" component={CadastrarTimes} />
+        <Route exact path="/profile" component={Profile} />
       </Router>
     </Provider>  
   );
