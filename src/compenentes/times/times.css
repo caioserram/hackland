@@ -1,0 +1,9 @@
+@import url('../../../src/view/config.css');
+
+.card-body h6{
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    padding-bottom: 1.5%;
+    border-bottom: 2px solid var(--cor-principal);
+}
