@@ -8,6 +8,30 @@ import { Redirect } from 'react-router-dom';
 
 function Desafio(){
     const[msgTipo, setMsgTipo] = useState();
+    const[titulo,setTitulo] = useState();
+    const[descricao,setDescricao] = useState();
+    const[data,setData] = useState();
+    const[hora,setHora] = useState();
+    const usuarioEmail = useSelector(state => state.usuarioEmail);
+
+    const db = firebase.firestore();
+
+    function cadastrar(){
+        setMsgTipo(null);
+        console.log(titulo, descricao, data, hora, usuarioEmail);
+        db.collection('desafios').add({
+            titulo: titulo,
+            descricao: descricao,
+            data: data,
+            hora: hora,
+            usuarioEmail: usuarioEmail
+        }).then(() => {
+            setMsgTipo('sucesso');
+        }).catch(erro => {
+            setMsgTipo('erro');
+        })
+    }
+
 
     return(
         <>
@@ -15,7 +39,7 @@ function Desafio(){
             <div className="col-12 Desafio-content d-flex align-items-center">
 
                 {
-                    useSelector(state => state.usuarioLogado) == 0 ? <Redirect to='/login' /> : null
+                    useSelector(state => state.usuarioLogado) === 0 ? <Redirect to='/login' /> : null
                 }      
 
                 <div className="row" id="titulo-form">
@@ -25,25 +49,25 @@ function Desafio(){
                     <form>
                         <div className="form-group">
                             <label> Título: </label>
-                            <input type="text" className="form-control" className="form-control" />
+                            <input onChange={ (e) => setTitulo(e.target.value) } type="text" className="form-control" />
                         </div>
                         <div className="form-group">
                             <label> Descrição: </label>
-                            <textarea className="form-control" rows="3" className="form-control" />
+                            <textarea onChange={ (e) => setDescricao(e.target.value) } className="form-control" rows="3" className="form-control" />
                         </div>
                         <div className="form-group">
                             <div className="row">
                                 <div className="col-6">
                                     <label>Data limite: </label>
-                                    <input type="date" className="form-control" />
+                                    <input type="date" className="form-control" onChange={ (e) => setData(e.target.value) }/>
                                 </div>
                                 <div className="col-6">
                                     <label> Hora limite: </label>
-                                    <input type="time" className="form-control" />
+                                    <input type="time" className="form-control" onChange={ (e) => setHora(e.target.value) }/>
                                 </div>
                             </div>
                         </div>
-                        <button type="button" className="btn btn-lg btn-block btn-login"> Cadastrar </button>
+                        <button onClick={cadastrar} type="button" className="btn btn-lg btn-block btn-login"> Cadastrar </button>
                     </form>
                 </div>    
             </div>

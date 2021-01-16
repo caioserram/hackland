@@ -21,7 +21,7 @@ function Navbar(){
             </h5>
             <nav className="my-2 my-md-0 mr-md-3" id="lista-nav">
                 {
-                        useSelector(state => state.usuarioLogado) == 0
+                        useSelector(state => state.usuarioLogado) === 0
                     ?
                         <>
                         <Link to='login' className="p-2 texto-nav">Login</Link>  
