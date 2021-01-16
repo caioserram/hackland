@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import './cadastro.css';
 import firebase from '../../config/firebase';
 import 'firebase/auth';
+import { Redirect } from 'react-router-dom';
 
 function NovoUsuario(){
     const[email, setEmail] = useState();   
     const[senha, setSenha] = useState();    
+    const[tipoUsuario, setTipoUsuario] = useState();   
     const[msgTipo, setMsgTipo] = useState();
     const[msg, setMsg] = useState();
+
+    const db = firebase.firestore();
 
     function cadastrar(){
         setMsgTipo(null);
@@ -20,6 +24,11 @@ function NovoUsuario(){
 
         firebase.auth().createUserWithEmailAndPassword(email,senha).then(resultado => {
             setMsgTipo('sucesso');
+            db.collection('cadastro').add({
+                email: email,
+                senha: senha,
+                tipoUsuario: tipoUsuario
+            })
         }).catch(erro => {
             setMsgTipo('erro');
             switch(erro.message){
@@ -43,6 +52,10 @@ function NovoUsuario(){
     return(
         <div className="Login-content d-flex align-items-center">
 
+            {
+                msgTipo === 'sucesso' ? <Redirect to='/' /> : null
+            }            
+
             <form className="form-signin mx-auto">
                 <div className="text-center mb4">
                 <i class="far fa-calendar-check text-white fa-3x"></i>
@@ -51,7 +64,13 @@ function NovoUsuario(){
 
                     <input onChange={(e) => setEmail(e.target.value) } type="email" id="inputEmail" className="form-control my-2" placeholder="Email " />
                     <input onChange={(e) => setSenha(e.target.value) } type="password" id="inputPassword" className="form-control my-2" placeholder="Senha " />
-                
+                    <div className="form-group">
+                        <select onChange={(e) => setTipoUsuario(e.target.value)} className="form-control">
+                            <option disabled selected value> -- Selecione o seu perfil </option>
+                            <option> Hacker </option>
+                            <option> Empreendedor </option>
+                        </select>
+                    </div>                  
                 <button onClick={cadastrar} className="btn btn-lg btn-block btn-login" type="button">Cadastrar</button>
 
                 <div className="msg-login text-center my-5">

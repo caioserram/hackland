@@ -10,7 +10,6 @@ function Home(){
     const[desafios, setDesafios] = useState([]);
 
     useEffect(() => {
-        alert('carregou');
         firebase.firestore().collection('desafios').get().then(
             async(resultado) => {
                 let listaDesafios = []
