@@ -1,0 +1,33 @@
+@import url('../config.css');
+
+body {
+    background-color: var(--cor-fundo);
+}
+
+.Login-content{
+    padding-top: 15%;
+    display: flex;
+    justify-content: center;   
+}
+
+.form-signin {
+    width: 50%;
+    margin-left: -25%
+}
+
+.btn-login{
+    background-color: var(--cor-titulo);
+    color: var(--cor-fundo); 
+    width: 50%;
+    margin: 4% 25%;
+}
+
+.btn-login:hover{
+    background-color: var(--cor-fundo);
+    color: var(--cor-titulo);
+    border-color: var(--cor-titulo);
+}
+
+.btn-login:focus{
+    box-shadow: none
+}
