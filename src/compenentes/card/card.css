@@ -1,0 +1,58 @@
+@import url('../../../src/view/config.css');
+
+.card-corpo{
+    width: 95%;
+    margin-right: 2.5%;
+    margin-left: 2.5%;
+}
+
+.card-body h4{
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    padding-bottom: 1.5%;
+    border-bottom: 2px solid var(--cor-principal);
+}
+
+.rodape-card {
+    color: var(--cod-secundaria);
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-detalhes {
+    background-color: var(--cor-principal);
+    color: white;
+}
+
+.btn-detalhes:hover {
+    background-color: var(--cor-secundaria);
+    color: var(--cor-titulo);
+}
+
+.card-text {
+    max-height: 200px;
+    overflow: hidden;
+}
+
+.texto-acessos{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.card-detalhes{
+    background-color: var(--cor-titulo);
+    color: var(--cor-fundo);
+}
+
+.card-detalhes-titulo{
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.itens-card{
+    display: flex;
+    justify-content: center;
+}
