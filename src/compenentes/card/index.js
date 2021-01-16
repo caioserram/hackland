@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './card.css';
 
-function Card({titulo, detalhes, inscritos, data, hora, premio}){
+function Card({id, titulo, detalhes, inscritos, data, premio}){
 
     return(
         <div className="col-md-4 col-sm-12">
@@ -12,7 +12,7 @@ function Card({titulo, detalhes, inscritos, data, hora, premio}){
                     <p className="card-text text-justify"> {detalhes} </p>
                     <div className="row rodape-card d-flex align-items-center">
                         <div className="col-6">
-                            <Link to="/cadastro" className="btn btn-sm btn-detalhes"> + detalhes </Link>
+                            <Link to={ '/detalhes/' + id } className="btn btn-sm btn-detalhes"> + detalhes </Link>
                         </div>
                         <div className="col-6 texto-acessos">
                             {inscritos ? inscritos : 0}    

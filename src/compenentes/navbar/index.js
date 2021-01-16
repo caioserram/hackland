@@ -24,13 +24,13 @@ function Navbar(){
                         useSelector(state => state.usuarioLogado) === 0
                     ?
                         <>
-                        <Link to='login' className="p-2 texto-nav">Login</Link>  
-                        <Link to='cadastro' className="p-2 texto-nav">Cadastrar</Link>
+                        <Link to='/login' className="p-2 texto-nav">Login</Link>  
+                        <Link to='/cadastro' className="p-2 texto-nav">Cadastrar</Link>
                         </>
                     :    
                         <>
-                        <Link to='hacks' className="p-2 texto-nav">Hacks</Link>
-                        <Link to='desafios' className="p-2 texto-nav">Meus desafios</Link>
+                        <Link to='/hacks' className="p-2 texto-nav">Hacks</Link>
+                        <Link to='/desafios' className="p-2 texto-nav">Meus desafios</Link>
                         <Link to='/' onClick={sair} className="p-2 texto-nav">Sair</Link>
                         </>
                 }
