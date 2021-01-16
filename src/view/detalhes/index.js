@@ -82,9 +82,9 @@ function Detalhes(props) {
                             <>
                                 <div className="">
                                     <h2 className="mx-auto"> Times </h2>
-                                    <Link to='' className="btn btn-sm btn-detalhes mb-3"> Criar time </Link>
+                                    <Link to={ '/cadastrarTimes/' + props.match.params.id } className="btn btn-sm btn-detalhes mb-3"> Criar time </Link>
                                 </div>                            
-                                <div className="">
+                                <div className="row">
                                     {
                                         times.map(item => <Times key={item.id} id={item.id} 
                                             time={item.id}       

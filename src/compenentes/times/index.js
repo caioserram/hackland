@@ -15,9 +15,9 @@ function Times({time, dono}){
                             {
                                     dono == 1
                                 ?   
-                                    'Gerenciar time'
+                                    'Gerenciar'
                                 :
-                                    'Solicitar participação'
+                                    'Ver time'
                             }
                         </Link>
                     </div>                 
