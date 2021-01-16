@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import Login from './view/login';
 import Cadastro from './view/cadastro';
 import Home from './view/home';
+import Desafios from './view/desafios';
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/cadastro" component={Cadastro} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/desafios" component={Desafios} />
+        <Route exact path="/hacks" component={Home} />
       </Router>
     </Provider>  
   );
