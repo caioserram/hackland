@@ -40,13 +40,14 @@ function Detalhes(props) {
                 }
 
                 <div className="row">
-                    <h2 className="mx-auto"> { usuarioEmail } </h2>
+                    <h2 className="mx-auto"> Meu Perfil </h2>
                 </div>   
             </div>           
             <div className="row">
                 {
                     dadosUsuario.map(item => <Times key={item.id} id={item.id} 
-                        time={item.id}       
+                        time={item.id} 
+                        detalhes={item.descricao}      
                         dono={usuarioEmail == item.usuarioEmail ? 1 : 0}  
                         origem={'perfil'}                                 
                     />) 

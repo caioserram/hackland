@@ -33,6 +33,8 @@ function HistTimes(props) {
                 var buscaDesafio = await resultado.data().desafio
                 setDesafio(resultado.data().desafio)
                 setDescricaoTime(resultado.data().descricao)
+                setNota(resultado.data().nota)
+                setLove(resultado.data().love)
                 firebase.firestore().collection('desafios').doc(buscaDesafio).get().then(
                     resultadoDesafio => {
                         setDescricao(resultadoDesafio.data().descricao)
