@@ -19,14 +19,11 @@ function Detalhes(props) {
     const usuarioEmail = useSelector(state => state.usuarioEmail);
 
     useEffect(() => {
-        console.log(props.match.params.id)
         firebase.firestore().collection('desafios').doc(props.match.params.id).get().then(
             resultado => {
                 setDesafio(resultado.data());
-                console.log(resultado.id)
                 firebase.firestore().collection('desafios_times').where('desafio','==',resultado.id).get().then(
                     async(resultadoId) => {
-                        console.log(resultadoId)
                         let listaTimes = []
                         await resultadoId.docs.forEach(doc => {
                             listaTimes.push({
@@ -87,7 +84,8 @@ function Detalhes(props) {
                                     {
                                         times.map(item => <Times key={item.id} id={item.id} 
                                             time={item.id}       
-                                            dono={usuarioEmail == item.usuarioEmail ? 1 : 0}                                     
+                                            dono={usuarioEmail == item.usuarioEmail ? 1 : 0}    
+                                            origem={'detalhes'}                                 
                                         />) 
                                     }
                                 </div>

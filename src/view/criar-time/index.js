@@ -35,7 +35,9 @@ function CadastroTime(props){
                 {
                     useSelector(state => state.usuarioLogado) === 0 ? <Redirect to='/login' /> : null
                 }      
-
+                {
+                    msgTipo === 'sucesso' ? <Redirect to='/hacks' /> : null
+                }   
                 <div className="row" id="titulo-form">
                     <h3> Criar Time </h3>
                 </div>
